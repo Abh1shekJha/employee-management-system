@@ -38,25 +38,9 @@ Database - Stores data
 
 
 
-\## 📸 API Testing Screenshots
+## 📸 API Testing
 
-
-
-\### 🔹 Create Employee (POST)
-
-
-
-!\[POST API](images/POST.png)
-
-
-
----
-
-
-
-\### 🔹 Get Employee (GET)
-
-
-
-!\[GET API](images/GET.png)
+| Create Employee | Get Employee |
+|----------------|--------------|
+| ![](images/POST.png) | ![](images/GET.png) |
 
