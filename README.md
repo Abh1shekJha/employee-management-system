@@ -36,11 +36,14 @@ Database - Stores data
 * Spring Data JPA
 * MySQL
 
-
-
 ## 📸 API Testing
 
-| Create Employee | Get Employee |
-|----------------|--------------|
-| ![](images/POST.png) | ![](images/GET.png) |
+### 🔹 Create Employee (POST)
 
+![POST API](images/POST.png)
+
+---
+
+### 🔹 Get Employee (GET)
+
+![GET API](images/GET.png)
