@@ -1,5 +1,8 @@
 package example.employeemanagement.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import example.employeemanagement.demo.dto.EmployeeRequest;
@@ -50,6 +53,61 @@ public class EmployeeService {
 		response.setEmail(employeeRepository.getReferenceById(id).getEmail());
 		response.setDepartmentName(employeeRepository.getReferenceById(id).getDepartment().getName());
 		return response;
+	}
+	
+	public List<EmployeeResponse> getAllEmployees() {
+		List<EmployeeResponse> empList = new ArrayList<>();
+		List<Employee> employees = new ArrayList<>();
+		employees=employeeRepository.findAll();
+		int x=0;
+		for(Employee e: employees) {
+			EmployeeResponse response = new EmployeeResponse();
+			response.setId(e.getId());
+			response.setEmail(e.getEmail());
+			response.setDepartmentName(e.getDepartment().getName());
+			response.setName(e.getName());
+			
+			empList.add(response);
+			
+		}
+		return empList;
+		
+		
+	}
+	private EmployeeResponse mapToResponse(Employee employee) {
+
+        EmployeeResponse response = new EmployeeResponse();
+        response.setId(employee.getId());
+        response.setName(employee.getName());
+        response.setEmail(employee.getEmail());
+        response.setDepartmentName(employee.getDepartment().getName());
+
+        return response;
+    }
+	
+	public EmployeeResponse delete(Long id) {
+		
+		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found!"));
+		
+		
+		employeeRepository.delete(employee);
+		return mapToResponse(employee);
+	}
+	public EmployeeResponse updateEmployee(Long id, EmployeeRequest request) {
+		
+		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found!"));
+		
+		Department department = departmentRepository.findById(request.getDepartmentId()).orElseThrow(() -> new RuntimeException("Employee not found!"));
+		
+		
+		employee.setName(request.getName());
+		employee.setEmail(request.getEmail());
+		employee.setDepartment(department);
+		
+		Employee updated = employeeRepository.save(employee);
+		
+		return mapToResponse(updated);
+		
 	}
 	
 }

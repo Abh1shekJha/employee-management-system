@@ -47,3 +47,15 @@ Database - Stores data
 ### 🔹 Get Employee (GET)
 
 ![GET API](images/GET.png)
+
+### 🔹 Get All Employees (GET)
+
+![GET API](images/GETALL.png)
+
+### 🔹 Update Employee (UPDATE)
+
+![UPDATE API](images/UPDATE.png)
+
+### 🔹 Delete Employee (DELETE)
+
+![DELETE API](images/DELETE.png)
