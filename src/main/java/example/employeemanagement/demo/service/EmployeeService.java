@@ -3,6 +3,8 @@ package example.employeemanagement.demo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import example.employeemanagement.demo.dto.EmployeeRequest;
@@ -54,6 +56,14 @@ public class EmployeeService {
 		response.setEmail(employeeRepository.getReferenceById(id).getEmail());
 		response.setDepartmentName(employeeRepository.getReferenceById(id).getDepartment().getName());
 		return response;
+	}
+	
+	//Pageable method
+	public Page<EmployeeResponse> getAllEmployees(Pageable pageable){
+		
+		Page<Employee> employees = employeeRepository.findAll(pageable);
+		
+		return employees.map(this::mapToResponse);
 	}
 	
 	public List<EmployeeResponse> getAllEmployees() {

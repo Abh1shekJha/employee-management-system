@@ -2,6 +2,9 @@ package example.employeemanagement.demo.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import example.employeemanagement.demo.dto.EmployeeRequest;
@@ -47,6 +51,30 @@ public class EmployeeController {
 		
 		return ResponseEntity.status(HttpStatus.FOUND).body(service.getAllEmployees());
 	}
+	
+	//Get All Using Pagination
+	@GetMapping
+	public ResponseEntity<Page<EmployeeResponse>> getAllEmployees(Pageable pageable) {
+
+	    Page<EmployeeResponse> employees = service.getAllEmployees(pageable);
+
+	    return ResponseEntity.ok(employees);
+	}
+	
+	//Optional Default Values
+	/*
+	 * @GetMapping public ResponseEntity<Page<EmployeeResponse>> getAllEmployees(
+	 * 
+	 * @RequestParam(defaultValue = "0") int page,
+	 * 
+	 * @RequestParam(defaultValue = "5") int size) {
+	 * 
+	 * Pageable pageable = PageRequest.of(page, size);
+	 * 
+	 * Page<EmployeeResponse> employees = service.getAllEmployees(pageable);
+	 * 
+	 * return ResponseEntity.ok(employees); }
+	 */
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeRequest request){
