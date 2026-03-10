@@ -9,6 +9,7 @@ import example.employeemanagement.demo.dto.EmployeeRequest;
 import example.employeemanagement.demo.dto.EmployeeResponse;
 import example.employeemanagement.demo.entity.Department;
 import example.employeemanagement.demo.entity.Employee;
+import example.employeemanagement.demo.exception.ResourceNotFoundException;
 import example.employeemanagement.demo.repository.DepartmentRepository;
 import example.employeemanagement.demo.repository.EmployeeRepository;
 
@@ -46,7 +47,7 @@ public class EmployeeService {
 		EmployeeResponse response = new EmployeeResponse();
 		
 		//Department department = departmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Department not found"));
-		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Department not found"));
+		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
 		
 		response.setId(employeeRepository.getReferenceById(id).getId());
 		response.setName(employeeRepository.getReferenceById(id).getName());
